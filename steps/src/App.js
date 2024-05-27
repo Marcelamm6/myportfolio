@@ -1,61 +1,61 @@
 import { useState } from "react";
-import "./styles.css";
 
-const faqs = [
-  {
-    title: "Where are these chairs assembled?",
-    text:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium, quaerat temporibus quas dolore provident nisi ut aliquid ratione beatae sequi aspernatur veniam repellendus."
-  },
-  {
-    title: "How long do I have to return my chair?",
-    text:
-      "Pariatur recusandae dignissimos fuga voluptas unde optio nesciunt commodi beatae, explicabo natus."
-  },
-  {
-    title: "Do you ship to countries outside the EU?",
-    text:
-      "Excepturi velit laborum, perspiciatis nemo perferendis reiciendis aliquam possimus dolor sed! Dolore laborum ducimus veritatis facere molestias!"
-  }
-];
-
-export default function App() {
+export default function App(){
   return (
     <div>
-      <Accordion data={faqs} />
+      <TipCalculator />
     </div>
-  );
+  )
 }
 
-function Accordion({ data }) {
-  const [curOpen, setCurOpen] = useState(null);
+function TipCalculator() {
+  const [bill, setBill] = useState("");
+  const [percentage1, setPercentage1] = useState(0);
+  const [percentage2, setPercentage2] = useState(0);
 
-  return (
-    <div className="accordion">
-      {data.map((el, i) => (
-        <AccordionItem curOpen={curOpen} onOpen={setCurOpen} title={el.title} num={i} key={el.title}>
-          {el.text}
-        </AccordionItem>
-      ))}
-    </div>
-  );
-}
+  const tip = bill * ((percentage1 + percentage2) / 2 / 100);
 
-function AccordionItem({ num, title, curOpen, onOpen, children }) {
-  // const [isOpen, setIsOpen] = useState(false);
-  const isOpen = num === curOpen;
-
-  function handleToggle() {
-    onOpen(isOpen ? null : num)
+  function handleReset() {
+    setBill("");
+    setPercentage1(0);
+    setPercentage2(0);
   }
 
-  return (
-    <div className={`item ${isOpen ? "open" : ""}`} onClick={handleToggle}>
-      <p className="number">{num < 9 ? `0${num + 1}` : num + 1}</p>
-      <p className="title">{title}</p>
-      <p className="icon">{isOpen ? "-" : "+"}</p>
+  return <div>
+    <BillInput bill={bill} onSetBill={setBill} />
+    <SelectPercentage percentage={percentage1} onSelect={setPercentage1}>How did you like the service?</SelectPercentage>
+    <SelectPercentage percentage={percentage2} onSelect={setPercentage2}>How did your friend like the service?</SelectPercentage>
 
-      {isOpen && <div className="content-box">{children}</div>}
+    {bill > 0 && <><Output bill={bill} tip={tip}/>
+    <Reset onreset={handleReset} /> </>}
+  </div>
+}
+
+function BillInput({bill, onSetBill}) {
+  return <div>
+    <lavel>How much was the bull?</lavel>
+    <input type="text" placeholder='Bill value' value={bill} onChange={e=>onSetBill(Number(e.target.value))} />
+  </div>
+}
+
+function SelectPercentage({children, percentage, onSelect}) {
+  return (
+    <div>
+      <label>{children}</label>
+      <select value={percentage} onChange={e=>onSelect(Number(e.target.value))}>
+        <option value="0">Dissatisfaied (0%)</option>
+        <option value="5">It was okay (5%)</option>
+        <option value="10">It was good (10%)</option>
+        <option value="20">Absolutely amazing! (20%)</option>
+      </select>
     </div>
-  );
+  )
+}
+
+function Output({ bill, tip }){
+  return <h3>You pay {bill + tip} (${bill} + ${tip} tip)</h3>
+}
+
+function Reset ({onreset}) {
+  return <button onClick={onreset}>Reset</button>
 }
