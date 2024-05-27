@@ -6,88 +6,103 @@ const messages = [
   "Invest your new income 🤑",
 ];
 
-export default function App(){
+export default function App() {
   return (
     <div>
       <Steps />
-      <Steps />
-      {/* <Counter /> */}
+      <StepMessage step={1}>
+        <p>Pass in content</p>
+        <p>✌️</p>
+      </StepMessage>
+      <StepMessage step={2}>
+        <p>Read children prop</p>
+        <p>😎</p>
+      </StepMessage>
+      {/* <Steps /> */}
     </div>
-  )
+  );
 }
-
-// function Counter() {
-//   const [count, setCount] = useState(0);
-//   const [stepDay, setStepDay] = useState(1);
-
-//   const date = new Date("june 21 2027")
-//   date.setDate(date.getDate() + count)
-
-//   return (
-//     <>
-//     <div className="test">
-//       <div>
-//         <button onClick={() => setStepDay((c) => c - 1)}>-</button>
-//         <span>Step: {stepDay}</span>
-//         <button onClick={() => setStepDay((c) => c + 1)}>+</button>
-//       </div>
-//     </div>
-//     <div className="test">
-//       <div>
-//         <button onClick={() => setCount((c) => c - stepDay)}>-</button>
-//         <span>Count: {count}</span>
-//         <button onClick={() => setCount((c) => c + stepDay)}>+</button>
-//       </div>
-//     </div>
-
-//     <p className="test">
-//       <span>{count === 0 ? "Today is" : count > 0 ? `${count} days from today is` : `${Math.abs(count)} days ago was `}</span>
-//       <span>{date.toDateString()}</span>
-//     </p>
-//     </>
-//   )
-
-// }
-
-
 
 function Steps() {
   const [step, setStep] = useState(1);
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(true);
 
-  function handlePrevious(){
-    if(step > 1) setStep((s) => s - 1);
+  // const [test, setTest] = useState({ name: "Jonas" });
+
+  function handlePrevious() {
+    if (step > 1) setStep((s) => s - 1);
   }
-  function handleNext(){
-    if(step < 3) setStep((s) => s + 1);
+
+  function handleNext() {
+    if (step < 3) {
+      setStep((s) => s + 1);
+      // setStep((s) => s + 1);
+    }
+
+    // BAD PRACTICE
+    // test.name = "Fred";
+    // setTest({ name: "Fred" });
   }
 
   return (
     <div>
-      <button className="close" onClick={()=>setIsOpen((is) => !is)}>&times;</button>
+      <button className="close" onClick={() => setIsOpen((is) => !is)}>
+        &times;
+      </button>
 
-      { isOpen && (
+      {isOpen && (
         <div className="steps">
-        <div className="numbers">
-          <div className={step >= 1 ? "active" : ""}>1</div>
-          <div className={step >= 2 ? "active" : ""}>2</div>
-          <div className={step >= 3 ? "active" : ""}>3</div>
-        </div>
+          <div className="numbers">
+            <div className={step >= 1 ? "active" : ""}>1</div>
+            <div className={step >= 2 ? "active" : ""}>2</div>
+            <div className={step >= 3 ? "active" : ""}>3</div>
+          </div>
 
-        <p className="message">
-          Step {step}: {messages[step - 1]}
-        </p>
+          <StepMessage step={step}>
+            {messages[step - 1]}
+            <div className="buttons">
+              <Button
+                bgColor="#e7e7e7"
+                textColor="#333"
+                onClick={() => alert(`Learn how to ${messages[step - 1]}`)}
+              >
+                Learn how
+              </Button>
+            </div>
+          </StepMessage>
 
-        <div className="buttons">
-          <button onClick={handlePrevious} style={{ backgroundColor: "#7950f2", color: "#fff" }}>
-            Previous
-          </button>
-          <button onClick={handleNext}>Next</button>
+          <div className="buttons">
+            <Button bgColor="#7950f2" textColor="#fff" onClick={handlePrevious}>
+              <span>👈</span> Previous
+            </Button>
+
+            <Button bgColor="#7950f2" textColor="#fff" onClick={handleNext}>
+              Next <span>👉</span>
+              <span>🤓</span>
+            </Button>
+          </div>
         </div>
-      </div>
       )}
     </div>
   );
 }
 
+function StepMessage({ step, children }) {
+  return (
+    <div className="message">
+      <h3>Step {step}</h3>
+      {children}
+    </div>
+  );
+}
 
+function Button({ textColor, bgColor, onClick, children }) {
+  return (
+    <button
+      style={{ backgroundColor: bgColor, color: textColor }}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+}
