@@ -33,7 +33,7 @@ function TipCalculator() {
 
 function BillInput({bill, onSetBill}) {
   return <div>
-    <lavel>How much was the bull?</lavel>
+    <label>How much was the bill?</label>
     <input type="text" placeholder='Bill value' value={bill} onChange={e=>onSetBill(Number(e.target.value))} />
   </div>
 }
