@@ -15,7 +15,7 @@ html {
 body {
   font-size: 2.4rem;
   font-family: sans-serif;
-  color: #5a3e2b;
+  color: #C7B7A3;
   font-family: "Quicksand";
   font-weight: 500;
 }
@@ -29,7 +29,7 @@ body {
 
 h1 {
   text-align: center;
-  background-color: #f4a226;
+  background-color: #6D2932;
   font-family: "Monoton";
   font-size: 8rem;
   text-transform: uppercase;
@@ -40,7 +40,7 @@ h1 {
 }
 
 .add-form {
-  background-color: #e5771f;
+  background-color: #561C24;
   padding: 2.8rem 0;
   display: flex;
   align-items: center;
@@ -56,7 +56,7 @@ h3 {
 button,
 select,
 input {
-  background-color: #ffebb3;
+  background-color: #E8D8C4;
   color: #5a3e2b;
   font-family: inherit;
   border: none;
@@ -67,14 +67,15 @@ input {
   cursor: pointer;
 }
 
+
 .add-form button {
   text-transform: uppercase;
-  background-color: #76c7ad;
+  background-color: #C7B7A3;
 }
 
 .list {
-  background-color: #5a3e2b;
-  color: #ffebb3;
+  background-color: #E8D8C4;
+  color: #5a3e2b;
   padding: 4rem 0;
 
   display: flex;
@@ -128,7 +129,8 @@ input[type="checkbox"] {
 }
 
 .stats {
-  background-color: #76c7ad;
+  background-color: #C7B7A3;
+  color: #5a3e2b;
   text-align: center;
   font-weight: 700;
   padding: 3.2rem 0;
