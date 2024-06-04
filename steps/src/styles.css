@@ -63,11 +63,11 @@
   
   /* OPEN STATE */
   .open {
-    border-top: 4px solid #087f5b;
+    border-top: 4px solid #7D0A0A;
   }
   
   .open .number,
   .open .title {
-    color: #087f5b;
+    color: #7D0A0A;
   }
   
